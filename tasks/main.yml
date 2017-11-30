@@ -1,0 +1,19 @@
+---
+# tasks file for ansible-role-vim
+
+- name: Install vim packages
+  become: yes
+  apt: pkg={{ item }} state=installed
+  tags: [packages]
+  with_items:
+    - vim-gnome
+    - exuberant-ctags
+
+- name: Set template .vimrc file to vagrant home
+  template: src=vimrc.j2 dest=~vagrant/.vimrc owner=vagrant group=vagrant mode="u=rw,g=r,o=r"
+
+- name: vim location dein config file directory
+  file: path=/home/vagrant/.vim/rc state=directory owner=vagrant group=vagrant mode=0755
+
+- name: Set template .dein file to vagrant home
+  template: src=dein.toml.j2 dest=~vagrant/.vim/rc/dein.toml owner=vagrant group=vagrant mode="u=rw,g=r,o=r"

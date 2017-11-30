@@ -1,0 +1,206 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc'
+hook_post_update = '''
+  if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+  elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+  elseif executable('gmake')
+    let cmd = 'gmake'
+  else
+    let cmd = 'make'
+  endif
+  let g:dein#plugin.build = cmd
+'''
+
+[[plugins]] # TMUX
+repo = 'tmux-plugins/vim-tmux'
+on_ft = 'tmux'
+
+[[plugins]] # solarized
+repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+nmap <silent> <C-e> :NERDTreeToggle<CR>
+vmap <silent> <C-e> <Esc> :NERDTreeToggle<CR>
+omap <silent> <C-e> :NERDTreeToggle<CR>
+imap <silent> <C-e> <Esc> :NERDTreeToggle<CR>
+'''
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+
+[[plugins]]
+repo = 'kana/vim-submode'
+hook_add = '''
+call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
+call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
+call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
+call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
+call submode#map('bufmove', 'n', '', '>', '<C-w>>')
+call submode#map('bufmove', 'n', '', '<', '<C-w><')
+call submode#map('bufmove', 'n', '', '+', '<C-w>+')
+call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+'''
+
+# git管理(編集系、コマンド直接実行)
+[[plugins]]
+repo = 'idanarye/vim-merginal'
+
+# git管理(コミット画面を編集しやすくする)
+[[plugins]]
+repo = 'rhysd/committia.vim'
+
+# git管理（gitのlogをグラフィカル表示）
+[[plugins]]
+repo = 'gregsexton/gitv'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+# emmetをvimで
+[[plugins]]
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'h1mesuke/unite-outline'
+
+[[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]] # カーソル位置のコンテキストのftを判定するライブラリ
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]] # riot syntax
+repo = 'ryym/vim-riot'
+on_ft = 'tag'
+
+[[plugins]]
+repo = 'Align'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+
+# Rails向けのコマンドを提供する
+[[plugins]]
+repo = 'tpope/vim-rails'
+
+[[plugins]]
+repo = 'Shougo/neocomplete'
+hook_add = '''
+let g:neocomplete#enable_at_startup = 1
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+# コメントON/OFFを手軽に実行する
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'tpope/vim-pathogen'
+hook_add = '''
+call pathogen#infect()
+'''
+
+[[plugins]] #行末の半角スペースを可視化
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]] #シンタックスチェック
+repo = 'scrooloose/syntastic'
+hook_add = '''
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+'''
+
+[[plugins]] #インデントを見やすくする
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+let g:indent_guides_enable_on_vim_startup = 1
+'''
+
+[[plugins]]
+repo = 'alpaca-tc/alpaca_tags'
+hook_add = '''
+  let g:alpaca_tags#config = {
+                         \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
+                         \ 'js' : '--languages=+js',
+                         \ '-js' : '--languages=-js,JavaScript',
+                         \ 'vim' : '--languages=+Vim,vim',
+                         \ 'php' : '--languages=+php',
+                         \ '-vim' : '--languages=-Vim,vim',
+                         \ '-style': '--languages=-css,scss,js,JavaScript,html',
+                         \ 'scss' : '--languages=+scss --languages=-css',
+                         \ 'css' : '--languages=+css',
+                         \ 'java' : '--languages=+java $JAVA_HOME/src',
+                         \ 'ruby': '--languages=+Ruby',
+                         \ 'coffee': '--languages=+coffee',
+                         \ '-coffee': '--languages=-coffee',
+                         \ 'bundle': '--languages=+Ruby',
+                         \ }
+  let g:alpaca_tags#timeout_period = 0
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+let g:lightline = {
+        \ 'colorscheme': 'seoul256',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'right': [ [ 'syntastic', 'lineinfo' ],
+        \              [ 'percent' ], [ 'winform' ],
+        \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'branch', 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'linetotal': 'LightLineTotal',
+        \   'modified': 'LightLineModified',
+        \   'readonly': 'LightLineReadonly',
+        \   'fugitive': 'LightLineFugitive',
+        \   'filename': 'LightLineFilename',
+        \   'filepath': 'LightLineFilepath',
+        \   'fileformat': 'LightLineFileformat',
+        \   'filetype': 'LightLineFiletype',
+        \   'fileencoding': 'LightLineFileencoding',
+        \   'mode': 'LightLineMode',
+        \   'winform': 'LightLineWinform'
+        \ },
+        \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
+        \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
+        \ 'component_expand': {
+        \   'syntastic': 'SyntasticStatuslineFlag',
+        \ },
+        \ 'component_type': {
+        \   'syntastic': 'error',
+        \ }
+        \ }
+
+let g:lightline.component = {
+    \ 'lineinfo': '%3l[%L]:%-2v'}
+
+'''
+
+[[plugins]] #
+repo = 'kmnk/vim-unite-giti'
+depends = ['unite.vim']
