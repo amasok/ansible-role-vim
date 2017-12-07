@@ -32,9 +32,10 @@ if dein#load_state(s:dein_dir)
 endif
 
 " vimprocだけは最初にインストールしてする
-if dein#check_install(['vimproc'])
-  call dein#install(['vimproc'])
-endif
+" if dein#check_install(['vimproc'])
+  " call dein#install(['vimproc'])
+  call dein#add(['Shougo/vimproc.vim'{'build': 'make'}])
+" endif
 " もし、未インストールものものがあったらインストール
 if dein#check_install()
   call dein#install()
@@ -68,6 +69,9 @@ set mouse=a
 set ttymouse=xterm2
 " yankをクリップボードにコピー
 set clipboard=unnamed,autoselect
+"send to clipboard"
+vnoremap <silent>y y :call system('nc localhost 8377', @0)<CR>
+vnoremap <silent>d d :call system('nc localhost 8377', @1)<CR>
 
 "------------------------------------
 " ウィンドウ幅やタブ関連の設定
